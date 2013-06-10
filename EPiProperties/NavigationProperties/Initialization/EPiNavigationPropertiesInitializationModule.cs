@@ -2,7 +2,9 @@
 using EPiProperties.Base;
 using EPiProperties.Initialization;
 using EPiProperties.NavigationProperties.DataAnnotation;
+using EPiServer.DataAbstraction.RuntimeModel;
 using EPiServer.Framework;
+using EPiServer.ServiceLocation;
 
 namespace EPiProperties.NavigationProperties.Initialization
 {
@@ -17,6 +19,9 @@ namespace EPiProperties.NavigationProperties.Initialization
             registry.For<CmsDescendantsAttribute>().Use<DescendentsPropertyGetter>();
             registry.For<CmsParentAttribute>().Use<ParentPropertyGetter>();
             registry.For<CmsReferenceAttribute>().Use<ReferencePropertyGetter>();
+
+            var handler = ServiceLocator.Current.GetInstance<ContentDataInterceptorHandler>();
+            handler.RegisterPropertyInterceptor();
         }
     }
 }
