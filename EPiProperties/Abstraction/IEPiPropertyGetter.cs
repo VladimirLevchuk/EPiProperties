@@ -1,9 +1,12 @@
 ﻿using System.Reflection;
+using EPiServer.Core;
 
 namespace EPiProperties.Abstraction
 {
     public interface IEPiPropertyGetter
     {
-        object GetValue(object @object, PropertyInfo property);
+        bool CanIntercept(PageData page, PropertyInfo property);
+
+        object GetValue(PageData page, PropertyInfo property);
     }
 }

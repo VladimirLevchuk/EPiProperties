@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
+using EPiServer.ServiceLocation;
 
 namespace EPiProperties.Abstraction
 {
     public class EPiPropertiesRegistry
     {
         private readonly Dictionary<Type, IEPiPropertyGetter> _getters = new Dictionary<Type, IEPiPropertyGetter>();
-        private readonly Dictionary<Type, IEPiPropertySetter> _setters = new Dictionary<Type, IEPiPropertySetter>();
 
         private readonly List<Type> _getterAttributes = new List<Type>();
-        private readonly List<Type> _setterAttributes = new List<Type>();
+
+        protected virtual List<Type> GetterAttributes { get { return _getterAttributes; }}
 
         private void AddGetter(Type annotationAttributeType, IEPiPropertyGetter getter)
         {
@@ -18,15 +20,6 @@ namespace EPiProperties.Abstraction
             if (!_getterAttributes.Contains(annotationAttributeType))
             {
                 _getterAttributes.Add(annotationAttributeType);
-            }
-        }
-
-        private void AddSetter(Type annotationAttributeType, IEPiPropertySetter setter)
-        {
-            _setters.Add(annotationAttributeType, setter);
-            if (!_setterAttributes.Contains(annotationAttributeType))
-            {
-                _setterAttributes.Add(annotationAttributeType);
             }
         }
 
@@ -46,15 +39,10 @@ namespace EPiProperties.Abstraction
                 _owner.AddGetter(_annotationAttributeType, getter);
             }
 
-            public void Use(IEPiPropertySetter setter)
+            public void Use<TPropertyGetter>()
+                where TPropertyGetter: IEPiPropertyGetter
             {
-                _owner.AddSetter(_annotationAttributeType, setter);
-            }
-
-            public void Use(IEPiPropertyHandler handler)
-            {
-                _owner.AddGetter(_annotationAttributeType, handler);
-                _owner.AddSetter(_annotationAttributeType, handler);
+                _owner.AddGetter(_annotationAttributeType, ServiceLocator.Current.GetInstance<TPropertyGetter>());
             }
         }
 
@@ -66,13 +54,16 @@ namespace EPiProperties.Abstraction
 
         public virtual IEPiPropertyGetter LookupGetter(PropertyInfo property)
         {
-            throw new NotImplementedException();
-            // var _attributes = property.GetCustomAttributes();
-        }
+            var attributes = property.GetCustomAttributes(true);
 
-        public virtual IEPiPropertySetter LookupSetter(PropertyInfo property)
-        {
-            throw new NotImplementedException();
+            var annotationAttributeType = attributes.Select(x => x.GetType()).Intersect(GetterAttributes).FirstOrDefault();
+
+            if (annotationAttributeType != null && _getters.ContainsKey(annotationAttributeType))
+            {
+                return _getters[annotationAttributeType];
+            }
+
+            return null;
         }
     }
 }
