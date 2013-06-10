@@ -36,8 +36,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="EPiInterceptors">
-      <HintPath>..\packages\EPiInterceptors.1.0.0.0\lib\net40\EPiInterceptors.dll</HintPath>
+    <Reference Include="EPiInterceptors, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EPiInterceptors.1.0.1.0\lib\net40\EPiInterceptors.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer, Version=7.0.586.16, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -150,8 +151,8 @@
     <Compile Include="Abstraction\EPiPropertiesRegistry.cs" />
     <Compile Include="Abstraction\EPiPropertyAttribute.cs" />
     <Compile Include="Abstraction\IEPiPropertyGetter.cs" />
-    <Compile Include="App_Start\EPiPropertiesConfigurationModule.cs" />
-    <Compile Include="App_Start\EPiPropertiesInitializationModule.cs" />
+    <Compile Include="Initialization\EPiPropertiesConfigurationModule.cs" />
+    <Compile Include="Initialization\EPiPropertiesInterceptorInitializer.cs" />
     <Compile Include="EPiPropertiesInterceptor.cs" />
     <Compile Include="NavigationProperties\ContentPropertyBase.cs" />
     <Compile Include="Util\InvocationExtensions.cs" />

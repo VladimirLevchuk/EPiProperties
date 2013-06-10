@@ -4,7 +4,7 @@ using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
 
-namespace EPiProperties
+namespace EPiProperties.Initialization
 {
     [ModuleDependency(typeof(ContentDataInterceptionExtendModule))]
     public class EPiPropertiesConfigurationModule : IConfigurableModule

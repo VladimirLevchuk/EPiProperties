@@ -2,6 +2,7 @@
 using EPiProperties.Abstraction;
 using EPiProperties.Util;
 using EPiServer.Core;
+using EPiServer.ServiceLocation;
 
 namespace EPiProperties
 {
@@ -12,6 +13,13 @@ namespace EPiProperties
         protected virtual EPiPropertiesRegistry Registry
         {
             get { return _registry; }
+        }
+
+        // that's an ugly hack, but for some reason when I leave only the correct constructor
+        // an empty registry injected instead, just like it hasn't been configured as a singleton
+        public EPiPropertiesInterceptor()
+            : this(ServiceLocator.Current.GetInstance<EPiPropertiesRegistry>())
+        {
         }
         
         public EPiPropertiesInterceptor(EPiPropertiesRegistry registry)

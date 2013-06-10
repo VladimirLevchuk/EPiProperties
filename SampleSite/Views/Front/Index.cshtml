@@ -1,0 +1,11 @@
+﻿@model SampleSite.Models.Pages.FrontPage
+
+@{
+    ViewBag.Title = Model.PageName;
+    ViewBag.PageName = Model.PageName;
+}
+
+@foreach (var page in Model.Children)
+{
+    @Url.PageUrl(page.StaticLinkURL)
+}

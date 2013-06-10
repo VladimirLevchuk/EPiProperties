@@ -1,11 +1,13 @@
 ﻿using EPiProperties.Abstraction;
 using EPiProperties.Base;
+using EPiProperties.Initialization;
 using EPiProperties.NavigationProperties.DataAnnotation;
 using EPiServer.Framework;
 
 namespace EPiProperties.NavigationProperties.App_Start
 {
     [InitializableModule]
+    [ModuleDependency(typeof(EPiPropertiesInterceptorInitializer))]
     public class EPiNavigationPropertiesInitializationModule : EPiPropertiesInitializationModuleBase
     {
         public override void ConfigureEPiProperties(EPiPropertiesRegistry registry)

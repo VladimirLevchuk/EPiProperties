@@ -1,0 +1,14 @@
+﻿@model SampleSite.Models.Pages.ArticlePage
+
+@{
+    ViewBag.Title = Model.PageName;
+    ViewBag.PageName = Model.PageName;
+}
+
+<h2> @Model.Heading </h2>
+
+<p>
+    @Model.Intro
+</p>
+
+@Html.XhtmlString(Model.Body)
