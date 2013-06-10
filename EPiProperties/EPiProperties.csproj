@@ -141,6 +141,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -151,6 +152,7 @@
     <Compile Include="Abstraction\EPiPropertiesRegistry.cs" />
     <Compile Include="Abstraction\EPiPropertyAttribute.cs" />
     <Compile Include="Abstraction\IEPiPropertyGetter.cs" />
+    <Compile Include="DebugContentDataInterceptor.cs" />
     <Compile Include="Initialization\EPiPropertiesConfigurationModule.cs" />
     <Compile Include="Initialization\EPiPropertiesInterceptorInitializer.cs" />
     <Compile Include="EPiPropertiesInterceptor.cs" />
@@ -164,7 +166,7 @@
     <Compile Include="NavigationProperties\DataAnnotation\CmsParentAttribute.cs" />
     <Compile Include="NavigationProperties\DataAnnotation\CmsReferenceAttribute.cs" />
     <Compile Include="NavigationProperties\DescendentsPropertyGetter.cs" />
-    <Compile Include="NavigationProperties\App_Start\EPiNavigationPropertiesInitializationModule.cs" />
+    <Compile Include="NavigationProperties\Initialization\EPiNavigationPropertiesInitializationModule.cs" />
     <Compile Include="Base\EPiPropertiesInitializationModuleBase.cs" />
     <Compile Include="NavigationProperties\ParentPropertyGetter.cs" />
     <Compile Include="NavigationProperties\ReferencePropertyGetter.cs" />

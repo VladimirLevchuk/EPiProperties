@@ -33,6 +33,7 @@ namespace EPiProperties
             var getProperty = invocation.ExtractPropertyInfoByGetMethod();
             if (getProperty != null)
             {
+                ////System.Diagnostics.Debug.WriteLine("INTERCEPT: " + getProperty.Name);
                 // if property info found let's lookup getter
                 var propertyGetter = Registry.LookupGetter(getProperty);
 
