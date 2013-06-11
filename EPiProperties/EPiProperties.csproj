@@ -157,6 +157,9 @@
     <Compile Include="Initialization\EPiPropertiesConfigurationModule.cs" />
     <Compile Include="Initialization\EPiPropertiesInterceptorInitializer.cs" />
     <Compile Include="EPiPropertiesInterceptor.cs" />
+    <Compile Include="StatusProperties\DataAnnotation\CmsPublishedStatusAttribute.cs" />
+    <Compile Include="StatusProperties\Initialization\EPiStatusPropertiesInitializationModule.cs" />
+    <Compile Include="StatusProperties\PublishedStatusPropertyGetter.cs" />
     <Compile Include="Util\InvocationExtensions.cs" />
     <Compile Include="NavigationProperties\AncestorsPropertyGetter.cs" />
     <Compile Include="NavigationProperties\ChildrenPropertyGetter.cs" />

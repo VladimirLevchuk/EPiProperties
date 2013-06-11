@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using EPiProperties.NavigationProperties.DataAnnotation;
+using EPiProperties.StatusProperties.DataAnnotation;
 using EPiServer.Core;
 using EPiServer.DataAnnotations;
 
@@ -14,5 +15,8 @@ namespace SampleSite.Models.Pages.Base
         [CmsParent]
         [Ignore]
         public virtual PageBase Parent { get; set; }
+
+        [CmsPublishedStatus]
+        public virtual bool IsPublished { get; internal set; }
     }
 }

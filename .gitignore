@@ -4,3 +4,4 @@ Release/
 !repositories.config
 packages/
 *.user
+EPiProperties*.nupkg
