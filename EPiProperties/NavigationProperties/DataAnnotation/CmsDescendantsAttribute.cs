@@ -3,7 +3,7 @@
 namespace EPiProperties.NavigationProperties.DataAnnotation
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
-    public class CmsDescendantsAttribute : Attribute
+    class CmsDescendantsAttribute : Attribute
     {
     }
 }
