@@ -7,5 +7,12 @@ namespace SampleSite.Models.Pages.Base
 {
     public class PageBase : PageData
     {
+        [CmsChildren]
+        [Ignore]
+        public virtual IEnumerable<PageBase> Children { get; set; }
+
+        [CmsParent]
+        [Ignore]
+        public virtual PageBase Parent { get; set; }
     }
 }

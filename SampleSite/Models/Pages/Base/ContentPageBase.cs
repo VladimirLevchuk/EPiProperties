@@ -2,7 +2,7 @@
 
 namespace SampleSite.Models.Pages.Base
 {
-    public class ContentPageBase : PageData
+    public class ContentPageBase : PageBase
     {
         public virtual string Heading { get; set; }
 

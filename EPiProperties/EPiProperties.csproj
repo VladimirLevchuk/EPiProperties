@@ -140,6 +140,7 @@
       <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -156,7 +157,6 @@
     <Compile Include="Initialization\EPiPropertiesConfigurationModule.cs" />
     <Compile Include="Initialization\EPiPropertiesInterceptorInitializer.cs" />
     <Compile Include="EPiPropertiesInterceptor.cs" />
-    <Compile Include="NavigationProperties\ContentPropertyBase.cs" />
     <Compile Include="Util\InvocationExtensions.cs" />
     <Compile Include="NavigationProperties\AncestorsPropertyGetter.cs" />
     <Compile Include="NavigationProperties\ChildrenPropertyGetter.cs" />

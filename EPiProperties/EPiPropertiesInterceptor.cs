@@ -15,12 +15,12 @@ namespace EPiProperties
             get { return _registry; }
         }
 
-        // that's an ugly hack, but for some reason when I leave only the correct constructor
-        // an empty registry injected instead, just like it hasn't been configured as a singleton
-        public EPiPropertiesInterceptor()
-            : this(ServiceLocator.Current.GetInstance<EPiPropertiesRegistry>())
-        {
-        }
+        ////// that's an ugly hack, but for some reason when I leave only the correct constructor
+        ////// an empty registry injected instead, just like it hasn't been configured as a singleton
+        ////public EPiPropertiesInterceptor()
+        ////    : this(ServiceLocator.Current.GetInstance<EPiPropertiesRegistry>())
+        ////{
+        ////}
         
         public EPiPropertiesInterceptor(EPiPropertiesRegistry registry)
         {
@@ -29,11 +29,11 @@ namespace EPiProperties
 
         public virtual void Intercept(IInvocation invocation)
         {
+            ////System.Diagnostics.Debug.WriteLine("INTERCEPT: " + invocation.Method.Name);
             // try to get property info from the current invocation get_ method. 
             var getProperty = invocation.ExtractPropertyInfoByGetMethod();
             if (getProperty != null)
             {
-                ////System.Diagnostics.Debug.WriteLine("INTERCEPT: " + getProperty.Name);
                 // if property info found let's lookup getter
                 var propertyGetter = Registry.LookupGetter(getProperty);
 

@@ -16,7 +16,7 @@ namespace EPiProperties.Initialization
                 {
                     x.For<EPiPropertiesRegistry>().Singleton().Use<EPiPropertiesRegistry>();
                     x.For<EPiPropertiesInterceptor>().Singleton().Use<EPiPropertiesInterceptor>();
-                    x.For<ContentDataInterceptor>().Use<DebugContentDataInterceptor>();
+                    // x.For<ContentDataInterceptor>().Use<DebugContentDataInterceptor>();
                 });
         }
 

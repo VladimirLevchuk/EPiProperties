@@ -3,3 +3,4 @@ Debug/
 Release/
 !repositories.config
 packages/
+*.user

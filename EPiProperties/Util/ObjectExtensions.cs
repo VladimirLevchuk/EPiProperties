@@ -6,8 +6,12 @@ namespace EPiProperties.Util
     {
         public static object Cast(this object @object, Type type)
         {
-            var result = Convert.ChangeType(@object, type);
-            return result;
+            if (@object == null)
+            {
+                return null;
+            }
+
+            return @object.GetType().Is(type) ? @object : null;
         }
     }
 }

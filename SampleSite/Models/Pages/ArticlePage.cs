@@ -8,6 +8,6 @@ namespace SampleSite.Models.Pages
     public class ArticlePage : ContentPageBase
     {
         [CmsParent]
-        public virtual ListPage Parent { get; internal  set; }
+        public virtual ListPage ParentList { get; internal  set; }
     }
 }

@@ -7,6 +7,10 @@
 
 <h2> @Model.Heading </h2>
 
+<nav>
+    <a href="@Url.PageUrl(Model.Parent.LinkURL)"> Parent </a>
+</nav>
+
 <p>
     @Model.Intro
 </p>

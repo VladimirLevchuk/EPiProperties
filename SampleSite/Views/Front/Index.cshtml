@@ -5,7 +5,31 @@
     ViewBag.PageName = Model.PageName;
 }
 
-@foreach (var page in Model.Children)
-{
-    @Url.PageUrl(page.StaticLinkURL)
-}
+<header>
+    <ul>
+        @if (Model.SearchPage != null)
+        {
+            <li>
+                <a href="@Url.PageUrl(Model.SearchPage.LinkURL)"> Search </a>  
+            </li>
+        }
+        
+        @if (Model.MainList != null)
+        {
+            <li>
+                <a href="@Url.PageUrl(Model.MainList.LinkURL)"> Main List</a>
+            </li>
+        }
+    </ul>
+</header>
+
+<nav>
+    <ul>
+    @foreach (var page in Model.Children)
+    {
+        <li>
+            @Html.PageLink(page)
+        </li>
+    }
+    </ul>
+</nav>
