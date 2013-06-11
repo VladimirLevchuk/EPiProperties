@@ -31,12 +31,7 @@ namespace EPiProperties.NavigationProperties
             ////bool isRequired = property.HasAttribute<RequiredAttribute>();
 
             // get annotation attribute
-            var annotation = property.GetAttribute<CmsReferenceAttribute>();
-            if (annotation == null)
-            {
-                // throw if not found
-                throw new InvalidOperationException("No CmsReference annotation attribute. ");
-            }
+            var annotation = property.GetAnnotation<CmsReferenceAttribute>();
 
             // get reference property name set by attribute or default
             var referencePropertyName = annotation.LinkFieldName ?? property.Name + "Link";

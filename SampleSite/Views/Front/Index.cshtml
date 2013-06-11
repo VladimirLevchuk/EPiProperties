@@ -25,14 +25,10 @@
 
 <nav>
     <ul>
-    @foreach (var page in Model.Children)
+    @foreach (var page in Model.Children.Where(x => x.IsAvailableInMenu && x.IsAvailableForCurrentUser))
     {
         <li>
             @Html.PageLink(page)
-            @if (!page.IsPublished)
-            {
-                <i> (not published)</i>
-            }
         </li>
     }
     </ul>

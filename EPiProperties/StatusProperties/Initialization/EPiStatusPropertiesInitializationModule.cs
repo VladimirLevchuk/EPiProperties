@@ -13,6 +13,7 @@ namespace EPiProperties.StatusProperties.Initialization
         public override void ConfigureEPiProperties(EPiPropertiesRegistry registry)
         {
             registry.For<CmsPublishedStatusAttribute>().Use<PublishedStatusPropertyGetter>();
+            registry.For<CmsPagePredicateAttribute>().Use<PagePredicatePropertyGetter>();
         }
     }
 }

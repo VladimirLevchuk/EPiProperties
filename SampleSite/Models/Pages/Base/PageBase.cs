@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using EPiProperties.NavigationProperties.DataAnnotation;
 using EPiProperties.StatusProperties.DataAnnotation;
+using EPiProperties.StatusProperties.Predicates;
 using EPiServer.Core;
 using EPiServer.DataAnnotations;
 
@@ -18,5 +19,11 @@ namespace SampleSite.Models.Pages.Base
 
         [CmsPublishedStatus]
         public virtual bool IsPublished { get; internal set; }
+
+        [CmsPagePredicate(Predicate = typeof(AvailableForCurrentUser))]
+        public virtual bool IsAvailableForCurrentUser { get; internal set; }
+
+        [CmsPagePredicate(Predicate = typeof(AvailableInMenu))]
+        public virtual bool IsAvailableInMenu { get; internal set; }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System.Reflection;
 using EPiProperties.Abstraction;
 using EPiProperties.StatusProperties.DataAnnotation;
-using EPiServer.Core;
 using EPiProperties.Util;
-using EPiServer.Filters;
+using EPiServer.Core;
+using EPiServer.ServiceLocation;
 
 namespace EPiProperties.StatusProperties
 {
-    public class PublishedStatusPropertyGetter : IEPiPropertyGetter
+    public class PagePredicatePropertyGetter : IEPiPropertyGetter
     {
         public virtual bool CanIntercept(PageData page, PropertyInfo property)
         {
@@ -16,11 +16,11 @@ namespace EPiProperties.StatusProperties
 
         public virtual object GetValue(PageData page, PropertyInfo property)
         {
-            var annotation = property.GetAnnotation<CmsPublishedStatusAttribute>();
+            var annotation = property.GetAnnotation<CmsPagePredicateAttribute>();
 
-            var result = FilterPublished.CheckPublishedStatus((IContent) page, annotation.Status);
+            var predicate = (IPagePredicate) ServiceLocator.Current.GetService(annotation.Predicate);
 
-            return result;
+            return predicate.Test(page);
         }
     }
 }
