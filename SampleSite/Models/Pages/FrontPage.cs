@@ -1,4 +1,5 @@
-﻿using EPiProperties.NavigationProperties.DataAnnotation;
+﻿using System.ComponentModel.DataAnnotations;
+using EPiProperties.NavigationProperties.DataAnnotation;
 using EPiServer.Core;
 using EPiServer.DataAnnotations;
 
@@ -12,6 +13,7 @@ namespace SampleSite.Models.Pages
         public virtual PageReference MainListReference { get; set; }
 
         [CmsReference]
+        [Required]
         public virtual SearchPage SearchPage { get; internal set; }
 
         [CmsReference(LinkFieldName = "MainListReference")]

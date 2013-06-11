@@ -5,3 +5,4 @@ Release/
 packages/
 *.user
 EPiProperties*.nupkg
+*.suo

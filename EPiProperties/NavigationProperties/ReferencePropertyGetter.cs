@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using EPiProperties.Abstraction;
 using EPiProperties.NavigationProperties.DataAnnotation;
@@ -6,18 +7,22 @@ using EPiProperties.Util;
 using EPiServer;
 using EPiServer.Core;
 using Castle.Core.Internal;
+using EPiServer.Framework.Localization;
 
 namespace EPiProperties.NavigationProperties
 {
     public class ReferencePropertyGetter : IEPiPropertyGetter
     {
         private readonly IContentLoader _contentLoader;
+        private readonly LocalizationService _localizationService;
 
         protected virtual IContentLoader ContentLoader { get { return _contentLoader; }}
+        protected virtual LocalizationService LocalizationService { get { return _localizationService; } }
 
-        public ReferencePropertyGetter(IContentLoader contentLoader)
+        public ReferencePropertyGetter(IContentLoader contentLoader, LocalizationService localizationService)
         {
             _contentLoader = contentLoader;
+            _localizationService = localizationService;
         }
 
         public bool CanIntercept(PageData page, PropertyInfo property)
@@ -27,8 +32,8 @@ namespace EPiProperties.NavigationProperties
 
         public object GetValue(PageData page, PropertyInfo property)
         {
-            ////// define if property is required
-            ////bool isRequired = property.HasAttribute<RequiredAttribute>();
+            // define if property is required
+            var requiredAnnotation = property.GetAttribute<RequiredAttribute>();
 
             // get annotation attribute
             var annotation = property.GetAnnotation<CmsReferenceAttribute>();
@@ -39,23 +44,53 @@ namespace EPiProperties.NavigationProperties
             // lookup reference property
             var referenceProperty = page.GetType().GetProperty(referencePropertyName);
 
-            if (referenceProperty == null)
+            if (referenceProperty != null)
+            // if reference property found
             {
-                // return null if not found, think about throwing an Exception if Required annotation present. 
+                // get link to a referenced page
+                var link = referenceProperty.GetValue(page, new object[0]) as PageReference;
+
+                if (!PageReference.IsNullOrEmpty(link))
+                // and if it's not empty
+                {
+                    // load referenced page and cast it to the target property type. 
+                    var result = ContentLoader.Get<PageData>(link).Cast(property.PropertyType);
+
+                    if (result != null)
+                    {
+                        return result;
+                    }
+                }
+            }
+
+            if (requiredAnnotation == null)
+            // if property is not marked as required
+            {
                 return null;
             }
 
-            // get reference
-            var link = referenceProperty.GetValue(page, new object[0]) as PageReference;
+            // otherwise get error message
+            string errorMessageFormat; 
 
-            if (PageReference.IsNullOrEmpty(link))
+            if (!string.IsNullOrEmpty(requiredAnnotation.ErrorMessageResourceName))
             {
-                return null;
+                errorMessageFormat = LocalizationService.GetString(requiredAnnotation.ErrorMessageResourceName);
+            }
+            else if (!string.IsNullOrEmpty(requiredAnnotation.ErrorMessage))
+            {
+                errorMessageFormat = requiredAnnotation.ErrorMessage;
+            }
+            else
+            {
+                errorMessageFormat = LocalizationService.GetString("EPiProperties/PropertyRequiredFormat", "Required property '{0}' is not set on the page #{1} of type '{2}'. ");
             }
 
-            // load referenced page and cast it to the target property type. 
-            var result = ContentLoader.Get<PageData>(link).Cast(property.PropertyType);
-            return result;
+            var errorMessage = string.Format(errorMessageFormat,
+                property.Name,
+                page.PageLink.ID,
+                page.PageTypeName);
+
+            throw new ApplicationException(errorMessage);
         }
     }
 }
