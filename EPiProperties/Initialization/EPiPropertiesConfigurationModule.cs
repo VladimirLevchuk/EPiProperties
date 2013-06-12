@@ -1,32 +1,33 @@
 ﻿using EPiInterceptors;
 using EPiProperties.Abstraction;
-using EPiServer.DataAbstraction.RuntimeModel;
 using EPiServer.Framework;
-using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
+using StructureMap;
 
 namespace EPiProperties.Initialization
 {
-    [ModuleDependency(typeof(ContentDataInterceptionExtendModule))]
-    public class EPiPropertiesConfigurationModule : IConfigurableModule
+    [ModuleDependency(typeof(ServiceContainerInitialization))]
+    public class EPiPropertiesConfigurationModule : InterceptionRegistrationInitModuleBase
     {
-        public void ConfigureContainer(ServiceConfigurationContext context)
+        public override void ConfigureContainer(ServiceConfigurationContext context)
         {
-            context.Container.Configure(x =>
-                {
-                    x.For<EPiPropertiesRegistry>().Singleton().Use<EPiPropertiesRegistry>();
-                    x.For<EPiPropertiesInterceptor>().Singleton().Use<EPiPropertiesInterceptor>();
-                    // x.For<ContentDataInterceptor>().Use<DebugContentDataInterceptor>();
-                });
+            base.ConfigureContainer(context);
+            RegistryIoC(context.Container);
         }
 
-        public void Initialize(InitializationEngine context)
-        {}
+        public virtual void RegistryIoC(IContainer container)
+        {
+            container.Configure(x =>
+                {
+                    x.For<EPiPropertiesRegistry>().Singleton().Use<EPiPropertiesRegistry>();
+                    x.For<IEPiPropertiesRegistry>().Use(() => ServiceLocator.Current.GetInstance<EPiPropertiesRegistry>());
+                    x.For<EPiPropertiesInterceptor>().Use<EPiPropertiesInterceptor>();
+                });            
+        }
 
-        public void Preload(string[] parameters)
-        {}
-
-        public void Uninitialize(InitializationEngine context)
-        {}
+        public override void RegisterContentDataInterceptors(ContentDataInterceptonRegistry registry)
+        {
+            registry.InterceptWith<EPiPropertiesInterceptor>();
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace EPiProperties.NavigationProperties
             _contentLoader = contentLoader;
         }
 
-        public virtual bool CanIntercept(PageData page, PropertyInfo property)
+        public virtual bool CanIntercept(IContentData contentData, PropertyInfo property)
         {
             // get property type
             var propertyType = property.PropertyType;
@@ -30,11 +30,13 @@ namespace EPiProperties.NavigationProperties
             var itemType = propertyType.TryGetCollectionItemType();
             
             // we handle this property if it's a collection with item type derived from PageData
-            return itemType != null && itemType.Is<PageData>();
+            return contentData is IContent && itemType != null && itemType.Is<PageData>();
         }
 
-        public virtual object GetValue(PageData page, PropertyInfo property)
+        public virtual object GetValue(IContentData contentData, PropertyInfo property)
         {
+            var content = (IContent) contentData;
+
             // get the collection item type. 
             var itemType = property.PropertyType.TryGetCollectionItemType();
             if (itemType == null)
@@ -47,7 +49,7 @@ namespace EPiProperties.NavigationProperties
             var result = (IList) Activator.CreateInstance(resultType);
             
             // get the current page children as PageData
-            var children = ContentLoader.GetChildren<PageData>(page.PageLink);
+            var children = ContentLoader.GetChildren<PageData>(content.ContentLink);
 
             // and filter them by our ItemType (same as children.OfType<ItemType>())
             foreach (var child in children.Select(x => x.Cast(itemType)).Where(child => child != null))

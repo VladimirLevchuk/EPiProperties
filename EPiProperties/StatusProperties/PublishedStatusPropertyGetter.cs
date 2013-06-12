@@ -9,16 +9,19 @@ namespace EPiProperties.StatusProperties
 {
     public class PublishedStatusPropertyGetter : IEPiPropertyGetter
     {
-        public virtual bool CanIntercept(PageData page, PropertyInfo property)
+        public virtual bool CanIntercept(IContentData contentData, PropertyInfo property)
         {
-            return property.PropertyType == typeof(bool);
+            return property.HasAnnotation<CmsPublishedStatusAttribute>() 
+                && contentData is IContent 
+                && property.PropertyType == typeof(bool);
         }
 
-        public virtual object GetValue(PageData page, PropertyInfo property)
+        public virtual object GetValue(IContentData contentData, PropertyInfo property)
         {
+            var content = (IContent) contentData;
             var annotation = property.GetAnnotation<CmsPublishedStatusAttribute>();
 
-            var result = FilterPublished.CheckPublishedStatus((IContent) page, annotation.Status);
+            var result = FilterPublished.CheckPublishedStatus(content, annotation.Status);
 
             return result;
         }

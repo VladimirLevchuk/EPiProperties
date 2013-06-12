@@ -1,31 +1,26 @@
-﻿using EPiProperties.StatusProperties.Services;
+﻿using EPiProperties.Base;
+using EPiProperties.StatusProperties.DataAnnotation;
+using EPiProperties.StatusProperties.Services;
 using EPiServer.Framework;
-using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
 
 namespace EPiProperties.StatusProperties.Initialization
 {
-    [ModuleDependency(typeof(ServiceContainerInitialization))]
-    public class EPiStatusConfigurationModule : IConfigurableModule
+    [InitializableModule]
+    public class EPiStatusConfigurationModule : EPiPropertiesInitializationModuleBase
     {
-        public void Initialize(InitializationEngine context)
-        {
-        }
-
-        public void Uninitialize(InitializationEngine context)
-        {
-        }
-
-        public void Preload(string[] parameters)
-        {
-        }
-
-        public void ConfigureContainer(ServiceConfigurationContext context)
+        public override void ConfigureContainer(ServiceConfigurationContext context)
         {
             context.Container.Configure(x =>
                 {
                     x.For<ICmsPageService>().Use<CmsPageService>();
                 });
+        }
+
+        public override void ConfigureEPiProperties(EPiPropertiesRegistry registry)
+        {
+            registry.For<CmsPublishedStatusAttribute>().Use<PublishedStatusPropertyGetter>();
+            registry.For<CmsPagePredicateAttribute>().Use<PagePredicatePropertyGetter>();
         }
     }
 }

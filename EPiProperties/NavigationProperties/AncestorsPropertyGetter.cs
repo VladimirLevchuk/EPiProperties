@@ -6,12 +6,12 @@ namespace EPiProperties.NavigationProperties
 {
     public class AncestorsPropertyGetter : IEPiPropertyGetter
     {
-        public virtual object GetValue(PageData page, PropertyInfo property)
+        public virtual object GetValue(IContentData contentData, PropertyInfo property)
         {
             throw new System.NotImplementedException();
         }
 
-        public virtual bool CanIntercept(PageData page, PropertyInfo property)
+        public virtual bool CanIntercept(IContentData contentData, PropertyInfo property)
         {
             throw new System.NotImplementedException();
         }

@@ -2,6 +2,7 @@
 using EPiProperties.NavigationProperties.DataAnnotation;
 using EPiServer.Core;
 using EPiServer.DataAnnotations;
+using SampleSite.Models.Blocks;
 
 namespace SampleSite.Models.Pages
 {
@@ -18,5 +19,7 @@ namespace SampleSite.Models.Pages
 
         [CmsReference(LinkFieldName = "MainListReference")]
         public virtual ListPage MainList { get; internal set; }
+
+        public virtual CarouselContent FrontCarousel { get; set; }
     }
 }

@@ -22,5 +22,11 @@ namespace EPiProperties.Util
 
             return result;
         }
+
+        public static bool HasAnnotation<TAttribute>(this PropertyInfo property)
+            where TAttribute : class
+        {
+            return property.HasAttribute<TAttribute>();
+        }
     }
 }

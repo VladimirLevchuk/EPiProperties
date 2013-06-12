@@ -11,17 +11,17 @@ namespace EPiProperties.Abstraction
         /// <summary>
         /// Detects if the current property can be intercepted by our getter. 
         /// </summary>
-        /// <param name="page">Page instance. </param>
+        /// <param name="contentData"></param>
         /// <param name="property">Property information. </param>
         /// <returns>Returns true if the property value will be returned by the GetValue method; otherwise returns false. </returns>
-        bool CanIntercept(PageData page, PropertyInfo property);
+        bool CanIntercept(IContentData contentData, PropertyInfo property);
 
         /// <summary>
         /// Gets the property value. 
         /// </summary>
-        /// <param name="page">Page instance. </param>
+        /// <param name="contentData">Page instance. </param>
         /// <param name="property">Property information. </param>
         /// <returns>Returns the calculated proeprty value</returns>
-        object GetValue(PageData page, PropertyInfo property);
+        object GetValue(IContentData contentData, PropertyInfo property);
     }
 }

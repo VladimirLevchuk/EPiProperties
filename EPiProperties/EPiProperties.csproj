@@ -36,9 +36,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="EPiInterceptors, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="EPiInterceptors, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EPiInterceptors.1.0.1.0\lib\net40\EPiInterceptors.dll</HintPath>
+      <HintPath>..\packages\EPiInterceptors.1.0.3.0\lib\net40\EPiInterceptors.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer, Version=7.0.586.16, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -150,19 +150,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Abstraction\EPiPropertiesRegistry.cs" />
-    <Compile Include="Abstraction\EPiPropertyAttribute.cs" />
+    <Compile Include="EPiPropertiesRegistry.cs" />
+    <Compile Include="Abstraction\IEPiPropertiesRegistry.cs" />
     <Compile Include="Abstraction\IEPiPropertyGetter.cs" />
     <Compile Include="DebugContentDataInterceptor.cs" />
+    <Compile Include="EPiPropertiesSimpleRegistry.cs" />
     <Compile Include="Initialization\EPiPropertiesConfigurationModule.cs" />
-    <Compile Include="Initialization\EPiPropertiesInterceptorInitializer.cs" />
     <Compile Include="EPiPropertiesInterceptor.cs" />
     <Compile Include="StatusProperties\DataAnnotation\CmsPublishedStatusAttribute.cs" />
     <Compile Include="StatusProperties\Initialization\EPiStatusConfigurationModule.cs" />
     <Compile Include="StatusProperties\PagePredicatePropertyGetter.cs" />
     <Compile Include="StatusProperties\DataAnnotation\CmsPagePredicateAttribute.cs" />
     <Compile Include="StatusProperties\IPagePredicate.cs" />
-    <Compile Include="StatusProperties\Initialization\EPiStatusPropertiesInitializationModule.cs" />
     <Compile Include="StatusProperties\Predicates\AvailableForCurrentUser.cs" />
     <Compile Include="StatusProperties\Predicates\AvailableInMenu.cs" />
     <Compile Include="StatusProperties\Predicates\Base\CmsPagePredicateBase.cs" />
@@ -190,7 +189,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="images\creuna.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

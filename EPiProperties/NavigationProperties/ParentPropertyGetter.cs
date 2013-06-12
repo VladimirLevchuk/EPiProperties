@@ -17,18 +17,19 @@ namespace EPiProperties.NavigationProperties
             _contentLoader = contentLoader;
         }
 
-        public bool CanIntercept(PageData page, PropertyInfo property)
+        public bool CanIntercept(IContentData contentData, PropertyInfo property)
         {
             // we intercept property if it's declared with any PageData descendant. 
-            return property.PropertyType.Is<PageData>();
+            return contentData is IContent && property.PropertyType.Is<PageData>();
         }
 
-        public object GetValue(PageData page, PropertyInfo property)
+        public object GetValue(IContentData contentData, PropertyInfo property)
         {
+            var content = (IContent) contentData;
             // the type from the property declaration
             var resultType = property.PropertyType;
             // load parent page and cast it to the declaration type
-            var result = ContentLoader.Get<PageData>(page.ParentLink).Cast(resultType);
+            var result = ContentLoader.Get<PageData>(content.ParentLink).Cast(resultType);
             return result;
         }
     }

@@ -7,30 +7,36 @@ using EPiProperties.Util;
 using EPiServer;
 using EPiServer.Core;
 using Castle.Core.Internal;
+using EPiServer.DataAbstraction;
 using EPiServer.Framework.Localization;
 
 namespace EPiProperties.NavigationProperties
 {
     public class ReferencePropertyGetter : IEPiPropertyGetter
     {
-        private readonly IContentLoader _contentLoader;
+        private readonly IContentLoader _contentLoader; 
+        private readonly IContentTypeRepository _contentTypeRepository;
         private readonly LocalizationService _localizationService;
 
         protected virtual IContentLoader ContentLoader { get { return _contentLoader; }}
+        protected virtual IContentTypeRepository ContentTypeRepository { get { return _contentTypeRepository; } }
         protected virtual LocalizationService LocalizationService { get { return _localizationService; } }
 
-        public ReferencePropertyGetter(IContentLoader contentLoader, LocalizationService localizationService)
+        public ReferencePropertyGetter(IContentLoader contentLoader, 
+            LocalizationService localizationService, 
+            IContentTypeRepository contentTypeRepository)
         {
             _contentLoader = contentLoader;
             _localizationService = localizationService;
+            _contentTypeRepository = contentTypeRepository;
         }
 
-        public bool CanIntercept(PageData page, PropertyInfo property)
+        public bool CanIntercept(IContentData contentData, PropertyInfo property)
         {
-            return property.PropertyType.Is<PageData>();
+            return property.HasAnnotation<CmsReferenceAttribute>() && property.PropertyType.Is<PageData>();
         }
 
-        public object GetValue(PageData page, PropertyInfo property)
+        public object GetValue(IContentData contentData, PropertyInfo property)
         {
             // define if property is required
             var requiredAnnotation = property.GetAttribute<RequiredAttribute>();
@@ -42,15 +48,15 @@ namespace EPiProperties.NavigationProperties
             var referencePropertyName = annotation.LinkFieldName ?? property.Name + "Link";
 
             // lookup reference property
-            var referenceProperty = page.GetType().GetProperty(referencePropertyName);
+            var referenceProperty = contentData.Property[referencePropertyName] as PropertyPageReference;
 
             if (referenceProperty != null)
             // if reference property found
             {
                 // get link to a referenced page
-                var link = referenceProperty.GetValue(page, new object[0]) as PageReference;
+                var link = referenceProperty.ContentLink;
 
-                if (!PageReference.IsNullOrEmpty(link))
+                if (!ContentReference.IsNullOrEmpty(link))
                 // and if it's not empty
                 {
                     // load referenced page and cast it to the target property type. 
@@ -85,12 +91,26 @@ namespace EPiProperties.NavigationProperties
                 errorMessageFormat = LocalizationService.GetString("EPiProperties/PropertyRequiredFormat", "Required property '{0}' is not set on the page #{1} of type '{2}'. ");
             }
 
-            var errorMessage = string.Format(errorMessageFormat,
-                property.Name,
-                page.PageLink.ID,
-                page.PageTypeName);
+            var content = contentData as IContent;
 
-            throw new ApplicationException(errorMessage);
+            if (content != null)
+            {
+                var contentType = ContentTypeRepository.Load(content.ContentTypeID);
+
+                var errorMessage = string.Format(errorMessageFormat,
+                    property.Name,
+                    content.ContentLink.ID,
+                    contentType.DisplayName);
+
+                throw new ApplicationException(errorMessage);
+            }
+            else
+            {
+                throw new ApplicationException(string.Format(errorMessageFormat, 
+                    property.Name,
+                    "?",
+                    "?")); // TODO
+            }
         }
     }
 }

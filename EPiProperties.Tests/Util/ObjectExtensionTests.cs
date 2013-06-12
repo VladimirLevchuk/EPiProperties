@@ -4,7 +4,7 @@ using NUnit.Framework;
 using SampleSite.Models.Pages;
 using FluentAssertions;
 
-namespace EPiProperties.Tests
+namespace EPiProperties.Tests.Util
 {
     public class ObjectExtensionTests
     {

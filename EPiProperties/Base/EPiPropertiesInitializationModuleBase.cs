@@ -5,11 +5,11 @@ using EPiServer.ServiceLocation;
 
 namespace EPiProperties.Base
 {
-    public abstract class EPiPropertiesInitializationModuleBase : IInitializableModule
+    public abstract class EPiPropertiesInitializationModuleBase : IConfigurableModule
     {
         public void Initialize(InitializationEngine context)
         {
-            var registry = ServiceLocator.Current.GetInstance<EPiPropertiesRegistry>();
+            var registry = context.Locate.Advanced.GetInstance<EPiPropertiesRegistry>();
             ConfigureEPiProperties(registry); 
         }
 
@@ -22,5 +22,9 @@ namespace EPiProperties.Base
         }
 
         public abstract void ConfigureEPiProperties(EPiPropertiesRegistry registry);
+
+        public virtual void ConfigureContainer(ServiceConfigurationContext context)
+        {
+        }
     }
 }

@@ -11,7 +11,7 @@
     <iconUrl>https://raw.github.com/VladimirLevchuk/EPiProperties/master/EPiProperties/images/creuna.gif</iconUrl> 
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial release: framework to easily add custom properties to EPiServer page types; several properties: Children, Parent, Reference; IsPublished, IsAvailableForCurrentUser, IsAvailableInMenu.</releaseNotes>
+    <releaseNotes>Initial release: framework to easily add custom properties to EPiServer page (and block) types; several properties: Children, Parent, Reference; IsPublished, IsAvailableForCurrentUser, IsAvailableInMenu.</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>EPiServer Creuna interception property</tags>
   </metadata>
