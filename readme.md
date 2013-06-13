@@ -5,7 +5,7 @@ EPiProperties
 
 
 EPiProperties is a small library which allows you to quickly add auto-properties 
-with a pre-defined behaviour to your EPiServer page types. 
+with a pre-defined behaviour to your EPiServer page types 
 
 The reason is to build a clean readable and testable API, 
 and move the logic which evaluates these properties into a separate content data interceptor. 
@@ -92,7 +92,7 @@ Reference property without name specified just looks for the property name + "Li
 Explore a couple [examples](https://github.com/VladimirLevchuk/EPiProperties/wiki#examples)
 
 ## For technical details 
-Look [Under The Hood](https://github.com/VladimirLevchuk/EPiProperties/wiki/Under-the-hood)
+Take a look [Under The Hood](https://github.com/VladimirLevchuk/EPiProperties/wiki/Under-the-hood)
 
 
     
