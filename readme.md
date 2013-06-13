@@ -13,32 +13,12 @@ and move the logic which evaluates these properties into a separate content data
 Take a look
 -----------
 
-Just add a couple meaningful properties to your page and EPiProperties will make them work for you
+* Just add meaningful properties to your content types and EPiProperties (available on nuget) will make them work for you.
+* Feel free to add your own properties - it's easy
 
-## Readable logic
-My section page shows acrticles grouped in subsections. 
-In the content tree it contains folders, and folder contains articles (content pages). 
-All the page properties in the snippet below are powered by EPiProperties
+## Built-in properties
 
-        public virtual SubsectionsModel GetFoldersInSectionModel(SectionPage section)
-        {
-            if (section == null) throw new ArgumentNullException("section");
-
-            var result = new SubsectionsModel
-                {
-                    Items = section.Subsections.Where(
-                                    subsection => subsection.IsPublishedAndReadableForCurrentUser 
-                                    && subsection.ContentPages.Any(contentPage => contentPage.IsAvailableForCurrentUser))
-                                .Select(GetSubsectionModel)
-                                .ToList()
-                };
-
-            return result;
-        }
-        
-## Section page, base page    
-
-Just add EPiProperties nugete to your project and pages below will work without any custom code
+Navigation properties:  Children, Parent; status properties: IsAvailableForCurrentUser, IsPublished, IsAvailableInMenu are useful on the base page
 
     public class PageBase: PageData
     {
@@ -58,6 +38,7 @@ Just add EPiProperties nugete to your project and pages below will work without 
         public virtual bool IsAvailableInMenu { get; internal set; }
     }
     
+Another typed children        
 
     [ContentType(DisplayName = "[Content] Section", GUID = "{d304cb4a-59cb-43f3-af5d-8c6041e6239e}")]
     public class SectionPage : Base.PageBase
@@ -66,13 +47,11 @@ Just add EPiProperties nugete to your project and pages below will work without 
         public virtual IEnumerable<FolderPage> Subsections { get; internal set; }
     }
     
+IsPublishedAndReadableForCurrentUser is useful for folder (container) page which may not have assigned template (IsAvailableForCurrentUser filters such pages out)
     
     [ContentType(DisplayName = "[Container] Folder", GUID = "{528F664C-852F-4999-87B9-B1251A6A5376}")]
     public partial class FolderPage : Base.PageBase, IContentPagesContainer
     {
-        [ScaffoldColumn(false)]
-        public virtual string Foo { get; set; }
-
         [CmsPagePredicate(Predicate = typeof(IsPublishedAndReadableForCurrentUser))]
         public virtual bool IsPublishedAndReadableForCurrentUser { get; internal set; }
 
@@ -80,6 +59,9 @@ Just add EPiProperties nugete to your project and pages below will work without 
         public virtual IEnumerable<ContentPageBase> ContentPages { get; internal set; }
     }
     
+Reference properties (just specify reference property name in the attribute and you'll get the typed access to the referenced page. 
+If reference property marked with `Required` attribute, and reference is not specified exception will be thrown; otherwise it returns `null` ).
+	
     [ContentType(DisplayName = "[Front] Carousel", 
         GUID = "{31c698ca-93ff-4d6c-83ad-4f49a3f7ac7a}", 
         Description = "Front Page Carousel",
@@ -91,26 +73,28 @@ Just add EPiProperties nugete to your project and pages below will work without 
         public virtual PageReference CarouselRoot { get; set; }
 
         [CmsReference(LinkFieldName = "CarouselRoot")]
-        public virtual IContentPagesContainer CarouselContainer { get; internal set; }
-        
+        public virtual IContentPagesContainer CarouselContainer { get; internal set; }        
     }
     
+Reference property without name specified just looks for the property name + "Link" suffix.
+	
     [ContentType(DisplayName = "[Content] List", GUID = "{63902AA5-690F-4634-9845-1CD74F89A87C}")]
     public class ListPage : Base.ContentPageBase, IContentPagesContainer
     {
-        [Display(Order = 20)]
-        [BackingType(typeof(PropertyPageReference))]
         [CultureSpecific]
         public virtual PageReference ListRootLink { get; set; }
 
         [CmsReference]
         public virtual FolderPage ListRoot { get; internal set; }
-
-        [CmsChildren]
-        public virtual IEnumerable<ContentPageBase> ContentPages { get; internal set; }
     }
     
-    
+## Your own properties - it's simple    
+Explore a couple [examples](https://github.com/VladimirLevchuk/EPiProperties/wiki#examples)
+
+## For technical details 
+Look [Under The Hood](https://github.com/VladimirLevchuk/EPiProperties/wiki/Under-the-hood)
+
+
     
     
     
