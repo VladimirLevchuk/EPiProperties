@@ -1,7 +1,7 @@
 EPiProperties
 =============
 
-*CURRENT STATUS* **DEBUG**
+*CURRENT STATUS* **PERFORMANCE TESTING**
 
 
 EPiProperties is a small library which allows you to quickly add auto-properties 
@@ -10,82 +10,109 @@ with a pre-defined behaviour to your EPiServer page types.
 The reason is to build a clean readable and testable API, 
 and move the logic which evaluates these properties into a separate content data interceptor. 
 
-Usage Sample - parent property
-------------------------------
+Take a look
+-----------
 
-### Define property
-In the example below I define a custom property `Parent` for my article page which refers to a parent page
-(in my example site it has to be ListPage). 
+Just add a couple meaningful properties to your page and EPiProperties will make them work for you
 
-    [ContentType(GUID = "{D45D87F2-E22E-4402-8F6D-7F72559C71F4}")]
-    public class ArticlePage : ContentPageBase
-    {
-        [CmsParent]
-        public virtual ListPage Parent { get; internal  set; }
-    }
-	
-I used my custom data annotation attributes `CmsParent`,
-but there are no restrictions on which attributes to use. 
+## Readable logic
+My section page shows acrticles grouped in subsections. 
+In the content tree it contains folders, and folder contains articles (content pages). 
+All the page properties in the snippet below are powered by EPiProperties
 
-And I want to simply use this property to get the parent page as the `ListPage` instance. 
-
-
-### Implement property getter
-
-To implement the property logic I need to implement `IEpiPropertyGetter` interface
-    /// <summary>
-    /// Defines your custom EPi Property get logic. 
-    /// </summary>
-    public interface IEPiPropertyGetter
-    {
-        /// <summary>
-        /// Detects if the current property can be intercepted by our getter. 
-        /// </summary>
-        /// <param name="page">Page instance. </param>
-        /// <param name="property">Property information. </param>
-        /// <returns>Returns true if the property value will be returned by the GetValue method; otherwise returns false. </returns>
-        bool CanIntercept(PageData page, PropertyInfo property);
-
-        /// <summary>
-        /// Gets the property value. 
-        /// </summary>
-        /// <param name="page">Page instance. </param>
-        /// <param name="property">Property information. </param>
-        /// <returns>Returns the calculated proeprty value</returns>
-        object GetValue(PageData page, PropertyInfo property);
-    }
-
-For my implementation I use constructor injection and a couple utility classes (`TypeExtensions.Is<T>` 
-and  `ObjectExtensions.Cast`
-
-    public class ParentPropertyGetter : IEPiPropertyGetter
-    {
-        private readonly IContentLoader _contentLoader;
-        protected virtual IContentLoader ContentLoader { get { return _contentLoader; } }
-
-        public ParentPropertyGetter(IContentLoader contentLoader)
+        public virtual SubsectionsModel GetFoldersInSectionModel(SectionPage section)
         {
-            // inject content loader here
-            _contentLoader = contentLoader;
-        }
+            if (section == null) throw new ArgumentNullException("section");
 
-        public bool CanIntercept(PageData page, PropertyInfo property)
-        {
-            // we intercept property if it's declared with any PageData descendant. 
-            return property.DeclaringType.Is<PageData>();
-        }
+            var result = new SubsectionsModel
+                {
+                    Items = section.Subsections.Where(
+                                    subsection => subsection.IsPublishedAndReadableForCurrentUser 
+                                    && subsection.ContentPages.Any(contentPage => contentPage.IsAvailableForCurrentUser))
+                                .Select(GetSubsectionModel)
+                                .ToList()
+                };
 
-        public object GetValue(PageData page, PropertyInfo property)
-        {
-            // the type from the property declaration
-            var resultType = property.DeclaringType;
-            // load parent page and cast it to the declaration type
-            var result = ContentLoader.Get<PageData>(page.ParentLink).Cast(resultType);
             return result;
         }
+        
+## Section page, base page    
+
+Just add EPiProperties nugete to your project and pages below will work without any custom code
+
+    public class PageBase: PageData
+    {
+        [CmsChildren]
+        public virtual IEnumerable<PageBase> Children { get; internal set; }
+
+        [CmsParent]
+        public virtual PageBase Parent { get; internal set; }
+
+        [CmsPublishedStatus]
+        public virtual bool IsPublished { get; internal set; }
+
+        [CmsPagePredicate(Predicate = typeof(AvailableForCurrentUser))]
+        public virtual bool IsAvailableForCurrentUser { get; internal set; }
+
+        [CmsPagePredicate(Predicate = typeof(AvailableInMenu))]
+        public virtual bool IsAvailableInMenu { get; internal set; }
     }
+    
 
+    [ContentType(DisplayName = "[Content] Section", GUID = "{d304cb4a-59cb-43f3-af5d-8c6041e6239e}")]
+    public class SectionPage : Base.PageBase
+    {
+        [CmsChildren]
+        public virtual IEnumerable<FolderPage> Subsections { get; internal set; }
+    }
+    
+    
+    [ContentType(DisplayName = "[Container] Folder", GUID = "{528F664C-852F-4999-87B9-B1251A6A5376}")]
+    public partial class FolderPage : Base.PageBase, IContentPagesContainer
+    {
+        [ScaffoldColumn(false)]
+        public virtual string Foo { get; set; }
 
-Under the hood
---------------
-TBD
+        [CmsPagePredicate(Predicate = typeof(IsPublishedAndReadableForCurrentUser))]
+        public virtual bool IsPublishedAndReadableForCurrentUser { get; internal set; }
+
+        [CmsChildren]
+        public virtual IEnumerable<ContentPageBase> ContentPages { get; internal set; }
+    }
+    
+    [ContentType(DisplayName = "[Front] Carousel", 
+        GUID = "{31c698ca-93ff-4d6c-83ad-4f49a3f7ac7a}", 
+        Description = "Front Page Carousel",
+        AvailableInEditMode = false)]
+    [PropertyGroup]
+    public class CarouselContentBlock : BlockBase
+    {
+        [Display(Name = "Carousel Root", Description = "Carousel will show child content pages for the page specified here", GroupName = SystemTabNames.Content, Order = 10)]
+        public virtual PageReference CarouselRoot { get; set; }
+
+        [CmsReference(LinkFieldName = "CarouselRoot")]
+        public virtual IContentPagesContainer CarouselContainer { get; internal set; }
+        
+    }
+    
+    [ContentType(DisplayName = "[Content] List", GUID = "{63902AA5-690F-4634-9845-1CD74F89A87C}")]
+    public class ListPage : Base.ContentPageBase, IContentPagesContainer
+    {
+        [Display(Order = 20)]
+        [BackingType(typeof(PropertyPageReference))]
+        [CultureSpecific]
+        public virtual PageReference ListRootLink { get; set; }
+
+        [CmsReference]
+        public virtual FolderPage ListRoot { get; internal set; }
+
+        [CmsChildren]
+        public virtual IEnumerable<ContentPageBase> ContentPages { get; internal set; }
+    }
+    
+    
+    
+    
+    
+    
+    
