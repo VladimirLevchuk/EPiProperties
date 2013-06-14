@@ -1,7 +1,7 @@
 EPiProperties
 =============
 
-*CURRENT STATUS* **PERFORMANCE TESTING**
+*CURRENT STATUS* **RELEASED, [Available on nuget.org](https://nuget.org/packages/EPiProperties/)** 
 
 
 EPiProperties is a small library which allows you to quickly add auto-properties 
