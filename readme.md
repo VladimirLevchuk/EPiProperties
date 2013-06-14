@@ -18,7 +18,9 @@ Take a look
 
 ## Built-in properties
 
-Navigation properties:  Children, Parent; status properties: IsAvailableForCurrentUser, IsPublished, IsAvailableInMenu are useful on the base page
+Navigation properties:  Children, Parent; status properties: IsAvailableForCurrentUser, IsPublished, IsAvailableInMenu are useful on the base page.
+Pay attention to different ways of Descendents usage - if it's declared as `IEnumerable<ContentReference>` pages won't be loaded at all, 
+just their references will be fetched into the result collection, otherwise EPiProperties will try to load pages and return only pages with type used in the collection definition. 
 
     public class PageBase: PageData
     {
@@ -36,6 +38,16 @@ Navigation properties:  Children, Parent; status properties: IsAvailableForCurre
 
         [CmsPagePredicate(Predicate = typeof(AvailableInMenu))]
         public virtual bool IsAvailableInMenu { get; internal set; }
+        
+        [CmsAncestors]
+        public virtual IEnumerable<PageBase> Ancestors { get; internal set; }
+
+        [CmsDescendants]
+        public virtual IEnumerable<PageBase> DescendentPages { get; internal set; }
+
+        [CmsDescendants]
+        public virtual IEnumerable<ContentReference> Descendents { get; internal set; }
+        
     }
     
 Another typed children        
