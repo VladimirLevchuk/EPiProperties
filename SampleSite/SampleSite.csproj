@@ -181,8 +181,7 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ItemGroup>
     <Compile Include="Controllers\ArticleController.cs" />
-    <Compile Include="Controllers\FolderController.cs" />
-    <Compile Include="Controllers\NotFrontController.cs" />
+    <Compile Include="Controllers\FrontController.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SectionController.cs" />
@@ -224,7 +223,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Views\NotFront\Index.cshtml" />
+    <Content Include="Views\Front\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Article\Index.cshtml" />
@@ -232,7 +231,6 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\CarouselContent.cshtml" />
     <Content Include="Views\Section\Index.cshtml" />
-    <Content Include="Views\Folder\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

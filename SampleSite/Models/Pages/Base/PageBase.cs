@@ -22,5 +22,14 @@ namespace SampleSite.Models.Pages.Base
 
         [CmsPagePredicate(Predicate = typeof(AvailableInMenu))]
         public virtual bool IsAvailableInMenu { get; internal set; }
+
+        [CmsAncestors]
+        public virtual IEnumerable<PageBase> Ancestors { get; internal set; }
+
+        [CmsDescendants]
+        public virtual IEnumerable<PageBase> DescendentPages { get; internal set; }
+
+        [CmsDescendants]
+        public virtual IEnumerable<ContentReference> Descendents { get; internal set; }
     }
 }

@@ -6,21 +6,15 @@ using EPiServer.Core;
 
 namespace EPiProperties.NavigationProperties
 {
-    public class ParentPropertyGetter : IEPiPropertyGetter
+    public class ParentPropertyGetter : Base.ContentPropertyGetterBase, IEPiPropertyGetter
     {
-        private readonly IContentLoader _contentLoader;
-        protected virtual IContentLoader ContentLoader { get { return _contentLoader; } }
-
-        public ParentPropertyGetter(IContentLoader contentLoader)
-        {
-            // inject content loader here
-            _contentLoader = contentLoader;
-        }
+        public ParentPropertyGetter(IContentLoader contentLoader) : base(contentLoader)
+        {}
 
         public bool CanIntercept(IContentData contentData, PropertyInfo property)
         {
-            // we intercept property if it's declared with any PageData descendant. 
-            return contentData is IContent && property.PropertyType.Is<PageData>();
+            // we intercept property if it's declared in a page or shared block. 
+            return contentData is IContent;
         }
 
         public object GetValue(IContentData contentData, PropertyInfo property)
@@ -29,7 +23,8 @@ namespace EPiProperties.NavigationProperties
             // the type from the property declaration
             var resultType = property.PropertyType;
             // load parent page and cast it to the declaration type
-            var result = ContentLoader.Get<PageData>(content.ParentLink).Cast(resultType);
+            var result = ContentLoader.Get<IContent>(content.ParentLink).Cast(resultType);
+
             return result;
         }
     }

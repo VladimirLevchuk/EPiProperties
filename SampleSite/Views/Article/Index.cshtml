@@ -16,3 +16,19 @@
 </p>
 
 @Html.XhtmlString(Model.Body)
+
+<hr/>
+
+<nav>
+    <h2>Breadcrumbs</h2>
+    <ul>
+        @foreach (var page in Model.Ancestors.Where(x => x.IsAvailableInMenu && x.IsAvailableForCurrentUser).Reverse())
+        {
+            <li>
+                @Html.PageLink(page)
+            </li>
+        }
+    </ul>
+</nav>
+
+<hr/>

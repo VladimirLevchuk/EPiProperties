@@ -1,19 +1,22 @@
-﻿using System.Reflection;
-using EPiProperties.Abstraction;
+﻿using System;
+using System.Reflection;
+using EPiServer;
 using EPiServer.Core;
 
 namespace EPiProperties.NavigationProperties
 {
-    public class AncestorsPropertyGetter : IEPiPropertyGetter
+    public class AncestorsPropertyGetter : Base.CollectionContentPropertyGetterBase
     {
-        public virtual object GetValue(IContentData contentData, PropertyInfo property)
-        {
-            throw new System.NotImplementedException();
-        }
+        public AncestorsPropertyGetter(IContentLoader contentLoader) : base(contentLoader)
+        {}
 
-        public virtual bool CanIntercept(IContentData contentData, PropertyInfo property)
+        public override object GetValue(IContent content, PropertyInfo property, Type collectionItemType)
         {
-            throw new System.NotImplementedException();
+            var result = GetPagesCollection(
+                () => ContentLoader.GetAncestors(content.ContentLink),
+                collectionItemType);
+
+            return result;
         }
     }
 }

@@ -10,8 +10,8 @@ namespace EPiProperties.NavigationProperties.Initialization
         public override void ConfigureEPiProperties(EPiPropertiesRegistry registry)
         {
             registry.For<CmsChildrenAttribute>().Use<ChildrenPropertyGetter>();
-            // registry.For<CmsAncestorsAttribute>().Use<AncestorsPropertyGetter>();
-            // registry.For<CmsDescendantsAttribute>().Use<DescendentsPropertyGetter>();
+            registry.For<CmsAncestorsAttribute>().Use<AncestorsPropertyGetter>();
+            registry.For<CmsDescendantsAttribute>().Use<DescendentsPropertyGetter>();
             registry.For<CmsParentAttribute>().Use<ParentPropertyGetter>();
             registry.For<CmsReferenceAttribute>().Use<ReferencePropertyGetter>();
         }
