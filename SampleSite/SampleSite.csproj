@@ -180,9 +180,17 @@
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ItemGroup>
+    <Compile Include="Business\LoadTesting\LoadResults.cs" />
+    <Compile Include="Business\LoadTesting\LoadTestRunner.cs" />
+    <Compile Include="Business\LoadTesting\LoadWhenContentLoaderMethodUsed.cs" />
+    <Compile Include="Business\LoadTesting\LoadWhenEPiPropertiesUsed.cs" />
+    <Compile Include="Business\LoadTesting\LoadWhenPropertiesNotUsed.cs" />
+    <Compile Include="Business\LoadTesting\LoadWithoutProperties.cs" />
+    <Compile Include="Business\LoadTesting\LoadScenario.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\FrontController.cs" />
     <Compile Include="Controllers\ListController.cs" />
+    <Compile Include="Controllers\LoadTestController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SectionController.cs" />
     <Compile Include="Global.asax.cs">
@@ -190,8 +198,10 @@
     </Compile>
     <Compile Include="Models\Blocks\CarouselContent.cs" />
     <Compile Include="Models\Pages\ArticlePage.cs" />
+    <Compile Include="Models\Pages\Test\LoadTestPage.cs" />
     <Compile Include="Models\Pages\Base\PageBase.cs" />
     <Compile Include="Models\Pages\Base\ContentPageBase.cs" />
+    <Compile Include="Models\Pages\Test\PageWithoutEPiProperties.cs" />
     <Compile Include="Models\Pages\FolderPage.cs" />
     <Compile Include="Models\Pages\FrontPage.cs" />
     <Compile Include="Models\Pages\ListPage.cs" />
@@ -200,7 +210,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Business\" />
     <Folder Include="Models\Properties\" />
     <Folder Include="Static\" />
   </ItemGroup>
@@ -231,6 +240,7 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Shared\CarouselContent.cshtml" />
     <Content Include="Views\Section\Index.cshtml" />
+    <Content Include="Views\LoadTest\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

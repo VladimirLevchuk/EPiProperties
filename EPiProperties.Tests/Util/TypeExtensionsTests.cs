@@ -40,7 +40,9 @@ namespace EPiProperties.Tests.Util
 
     interface ITypedInterface<out T> : IInterface
     {
+#pragma warning disable 108,114
         T Value { get; }
+#pragma warning restore 108,114
     }
 
     class Parent
