@@ -33,7 +33,7 @@ namespace EPiProperties.NavigationProperties
 
         public bool CanIntercept(IContentData contentData, PropertyInfo property)
         {
-            return property.HasAnnotation<CmsReferenceAttribute>() && property.PropertyType.Is<PageData>();
+            return property.HasAnnotation<CmsReferenceAttribute>();
         }
 
         public object GetValue(IContentData contentData, PropertyInfo property)

@@ -1,0 +1,42 @@
+Scenario: PageWithoutEPiProperties 
+Steps: 1000000 
+Pages: 100 
+Startup Time: 6003 
+Load Time: 6187 
+Cleanup Time: 568
+
+Scenario: PageWithEPiProperties 
+Steps: 1000000 
+Pages: 100 
+Startup Time: 5729 
+Load Time: 6315 
+Cleanup Time: 880
+
+----------
+Scenario: Children 
+Steps: 10000 
+Pages: 50 
+Startup Time: 2396 
+Load Time: 94715 
+Cleanup Time: 513
+
+Scenario: EPiPropertiesChildren 
+Steps: 10000 
+Pages: 50 
+Startup Time: 2613 
+Load Time: 94908 
+Cleanup Time: 487
+
+Scenario: Children 
+Steps: 1000 
+Pages: 100 
+Startup Time: 6562 
+Load Time: 18895 
+Cleanup Time: 703
+
+Scenario: EPiPropertiesChildren 
+Steps: 1000 
+Pages: 100 
+Startup Time: 5827 
+Load Time: 19092 
+Cleanup Time: 605
