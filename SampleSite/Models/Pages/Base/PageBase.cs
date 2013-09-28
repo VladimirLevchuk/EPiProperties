@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using EPiProperties.NavigationProperties.DataAnnotation;
+using EPiProperties.OtherProperties.DataAnnotation;
 using EPiProperties.StatusProperties.DataAnnotation;
 using EPiProperties.StatusProperties.Predicates;
 using EPiServer.Core;
@@ -31,5 +32,8 @@ namespace SampleSite.Models.Pages.Base
 
         [CmsDescendants]
         public virtual IEnumerable<ContentReference> Descendents { get; internal set; }
+
+        [FriendlyUrl]
+        public virtual string FriendlyUrl { get; internal set; }
     }
 }

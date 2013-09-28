@@ -11,14 +11,14 @@
         @if (Model.SearchPage != null)
         {
             <li>
-                <a href="@Url.PageUrl(Model.SearchPage.LinkURL)"> Search </a>  
+                <a href="@Model.SearchPage.FriendlyUrl"> Search </a>  
             </li>
         }
         
         @if (Model.MainList != null)
         {
             <li>
-                <a href="@Url.PageUrl(Model.MainList.LinkURL)"> Main List</a>
+                <a href="@Model.MainList.FriendlyUrl"> Main List</a>
             </li>
         }
     </ul>
@@ -29,7 +29,7 @@
         @foreach (var page in Model.Children.Where(x => x.IsAvailableInMenu && x.IsAvailableForCurrentUser))
         {
             <li>
-                @Html.PageLink(page)
+                <a href="@page.FriendlyUrl"> @page.Name </a>
             </li>
         }
     </ul>
