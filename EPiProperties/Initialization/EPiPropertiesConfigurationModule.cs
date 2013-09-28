@@ -17,7 +17,7 @@ namespace EPiProperties.Initialization
 
         public virtual void RegistryIoC(IContainer container)
         {
-            container.Configure(x =>
+            container.Configure(x => 
                 {
                     x.For<EPiPropertiesRegistry>().Singleton().Use<EPiPropertiesRegistry>();
                     x.For<IEPiPropertiesRegistry>().Use(() => ServiceLocator.Current.GetInstance<EPiPropertiesRegistry>());

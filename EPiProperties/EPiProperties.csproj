@@ -142,6 +142,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -159,6 +160,10 @@
     <Compile Include="EPiPropertiesInterceptor.cs" />
     <Compile Include="NavigationProperties\Base\CollectionContentPropertyGetterBase.cs" />
     <Compile Include="NavigationProperties\Base\ContentPropertyGetterBase.cs" />
+    <Compile Include="OtherProperties\DataAnnotation\FriendlyUrlAttribute.cs" />
+    <Compile Include="OtherProperties\FriendlyUrlPropertyGetter.cs" />
+    <Compile Include="OtherProperties\Initialization\OtherPropertiesConfigurationModule.cs" />
+    <Compile Include="PropertyGetterCache.cs" />
     <Compile Include="StatusProperties\DataAnnotation\CmsPublishedStatusAttribute.cs" />
     <Compile Include="StatusProperties\Initialization\EPiStatusConfigurationModule.cs" />
     <Compile Include="StatusProperties\PagePredicatePropertyGetter.cs" />

@@ -5,6 +5,7 @@ namespace EPiProperties.Abstraction
 {
     /// <summary>
     /// Defines your custom EPi Property get logic. 
+    /// Make it stateless and thread safe. 
     /// </summary>
     public interface IEPiPropertyGetter
     {
