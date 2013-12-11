@@ -1,0 +1,31 @@
+﻿@model SampleSite.Models.Pages.ListPage
+
+@{
+    ViewBag.Title = Model.PageName;
+    ViewBag.PageName = Model.PageName;
+}
+
+<h2> @Model.Heading </h2>
+
+<p>
+    @Model.Intro
+</p>
+
+
+<nav>
+    <a href="@Url.PageUrl(Model.Parent.LinkURL)"> Parent </a>
+</nav>
+
+<nav>
+    <h2> Articles </h2>
+    <ul>
+        @foreach (var article in Model.ChildArticles)
+        {
+            <li>
+                @Html.PageLink(article)
+            </li>
+        }
+    </ul>
+</nav>
+
+@Html.XhtmlString(Model.Body)

@@ -36,9 +36,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Castle.Core.3.2.0\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="EPiInterceptors, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EPiInterceptors.1.0.3.0\lib\net40\EPiInterceptors.dll</HintPath>
+    <Reference Include="Castle.Windsor, Version=3.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Castle.Windsor.3.2.1\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer, Version=7.0.586.16, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -198,6 +198,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\creuna.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EPiInterceptors\EPiInterceptors\EPiInterceptors.csproj">
+      <Project>{eb2e0564-860b-420d-b198-d9e4b7d9020e}</Project>
+      <Name>EPiInterceptors</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

@@ -1,12 +1,37 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using EPiProperties.Abstraction;
 using EPiProperties.Util;
+using EPiServer.Construction;
 using EPiServer.Core;
+using EPiServer.DataAbstraction.RuntimeModel;
+using EPiServer.Framework;
 
 namespace EPiProperties
 {
+    public class ContentDataInterceptorHandlerExtender : ContentDataInterceptorHandler
+    {
+        public ContentDataInterceptorHandlerExtender(ConstructorParameterResolver constructorResolver, Action<IWindsorContainer> containerConfigurator)
+            : base(constructorResolver)
+        {
+            Validator.ThrowIfNull("containerConfigurator", containerConfigurator);
+
+            var fieldContainer = typeof(ContentDataInterceptorHandler).GetField("_container", BindingFlags.Instance | BindingFlags.NonPublic);
+
+            var container = (IWindsorContainer) fieldContainer.GetValue(this);
+            
+            containerConfigurator(container);
+            Container = container;
+        }
+
+        protected virtual IWindsorContainer Container { get; private set; }
+    }
+
     public class EPiPropertiesInterceptor : IInterceptor
     {
         private readonly IEPiPropertiesRegistry _registry;
@@ -25,6 +50,12 @@ namespace EPiProperties
 
         public virtual void Intercept(IInvocation invocation)
         {
+            Debug.WriteLine("[INTERCEPTION] {0}", invocation.Method.Name);
+
+            if (invocation.Method.Name.Contains("Children"))
+            {
+                Debugger.Break();
+            }
             // try to get property info from the current invocation get_ method. 
             var getProperty = invocation.ExtractPropertyInfoByGetMethod();
             if (getProperty != null && !_filter.NeverIntercept(getProperty))
