@@ -11,7 +11,17 @@
     <iconUrl>https://raw.github.com/VladimirLevchuk/EPiProperties/master/EPiProperties/images/creuna.gif</iconUrl> 
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Boosting performance: cache interceptors, filter out EPiServer properties. </releaseNotes>
+    <releaseNotes>
+      v7.5.*
+      - upgraded to EPiServer 7.5
+      - versioning is now based on EPiServer version
+      - removed EPiInterceptors dependency, implemented alternative way with Windsor Container configuration using proxy generation hook and interceptor selector
+      - Abstraction renamed to Contracts
+      - fixed https://github.com/VladimirLevchuk/EPiProperties/issues/2
+
+      v1.0.*
+      - Boosting performance: cache interceptors, filter out EPiServer properties.
+    </releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>EPiServer Creuna interception property</tags>
   </metadata>

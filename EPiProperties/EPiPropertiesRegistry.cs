@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
-using EPiProperties.Abstraction;
+using EPiProperties.Contracts;
 using EPiServer.ServiceLocation;
 
 namespace EPiProperties
@@ -70,10 +70,15 @@ namespace EPiProperties
 
         public virtual IEnumerable<IEPiPropertyGetter> LookupGetters(PropertyInfo property)
         {
-            // more correct way is to cache jsut getter types and create them using IoC on every call. 
+            // more correct way is to cache just getter types and create them using IoC on every call. 
             // but suppose performance is more important than getter lifetimes. 
-            // they need to be stateless and thread safe. 
+            // so they have to be stateless and thread safe. 
             return _cache.AddOrGet(property, LookupGettersImplementation);
+        }
+
+        public virtual bool IsEPiProperty(PropertyInfo property)
+        {
+            return LookupGetters(property).Any();
         }
     }
 }

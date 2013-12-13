@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using EPiProperties.Abstraction;
+using EPiProperties.Contracts;
 using EPiProperties.Util;
 using EPiServer;
 using EPiServer.Core;

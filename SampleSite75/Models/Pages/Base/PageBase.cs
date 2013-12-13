@@ -10,11 +10,10 @@ using EPiServer.DataAnnotations;
 
 namespace SampleSite.Models.Pages.Base
 {
-    [Interceptor(typeof(EPiPropertiesInterceptor))]
+    // [Interceptor(typeof(EPiPropertiesInterceptor))]
     public class PageBase : PageData
     {
         [CmsChildren]
-        [Ignore]
         public virtual IEnumerable<PageBase> Children { get; set; }
 
         [CmsParent]

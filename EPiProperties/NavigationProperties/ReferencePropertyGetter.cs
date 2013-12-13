@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using EPiProperties.Abstraction;
+using EPiProperties.Contracts;
 using EPiProperties.NavigationProperties.DataAnnotation;
 using EPiProperties.Util;
 using EPiServer;
