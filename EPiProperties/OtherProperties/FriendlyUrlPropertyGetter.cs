@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using EPiProperties.Abstraction;
+using EPiProperties.Contracts;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
@@ -36,7 +36,7 @@ namespace EPiProperties.OtherProperties
 
         private string GetFriendlyUrl(PageData page)
         {
-            var result = Resolver.GetVirtualPath(page.PageLink, page.LanguageBranch);
+            var result = Resolver.GetUrl(page.PageLink, page.LanguageBranch);
             return result;
         }
     }

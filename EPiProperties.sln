@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleSite", "SampleSite\SampleSite.csproj", "{3D79ADE5-DADB-47D2-933D-E98F9773AFAD}"
-EndProject
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiProperties", "EPiProperties\EPiProperties.csproj", "{F88D9064-F0AA-4D52-8322-8E2C39AAC33D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{546C13AC-4408-4374-8230-BCEE8805AE02}"
@@ -14,16 +14,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{546C13
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiProperties.Tests", "EPiProperties.Tests\EPiProperties.Tests.csproj", "{7B20967F-FA12-440F-8207-7F863FC85A05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleSite75", "SampleSite75\SampleSite75.csproj", "{8DD08806-8318-4AED-9B8F-7371E114556A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3D79ADE5-DADB-47D2-933D-E98F9773AFAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3D79ADE5-DADB-47D2-933D-E98F9773AFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3D79ADE5-DADB-47D2-933D-E98F9773AFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3D79ADE5-DADB-47D2-933D-E98F9773AFAD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F88D9064-F0AA-4D52-8322-8E2C39AAC33D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F88D9064-F0AA-4D52-8322-8E2C39AAC33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F88D9064-F0AA-4D52-8322-8E2C39AAC33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,8 +30,15 @@ Global
 		{7B20967F-FA12-440F-8207-7F863FC85A05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B20967F-FA12-440F-8207-7F863FC85A05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B20967F-FA12-440F-8207-7F863FC85A05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DD08806-8318-4AED-9B8F-7371E114556A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD08806-8318-4AED-9B8F-7371E114556A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DD08806-8318-4AED-9B8F-7371E114556A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DD08806-8318-4AED-9B8F-7371E114556A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal

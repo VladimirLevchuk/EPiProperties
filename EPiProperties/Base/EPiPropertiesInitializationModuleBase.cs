@@ -1,6 +1,4 @@
-﻿using EPiProperties.Abstraction;
-using EPiServer.Framework;
-using EPiServer.Framework.Initialization;
+﻿using EPiServer.Framework.Initialization;
 using EPiServer.ServiceLocation;
 
 namespace EPiProperties.Base
