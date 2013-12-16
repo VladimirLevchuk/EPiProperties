@@ -41,7 +41,20 @@ foreach($name in $variables.keys)
 
 $nuget = "$srcFolder\.nuget\NuGet.exe"
 $apikey = $variables["apikeySecure"]
-$path = "$tempFolder\EPiProperties\*.nupkg"
+$nugetPackagesMask = "$tempFolder\EPiProperties\*.nupkg"
+$packageFilename = $nugetPackagesMask
+$allPackages = Get-ChildItem $nugetPackagesMask
+
+foreach ($packageItem in $allPackages) 
+{
+	$packageFilename = $packageItem.ToString()
+	if (-not $packageFilename.Contains("symbols"))
+	{
+		$path = $packageFilename
+		break
+	}
+}
+
 $parameters = " Push ""$path"" -ApiKey $apikey"
 
 Write-Output "$nuget Push $path -ApiKey $securedValue"
