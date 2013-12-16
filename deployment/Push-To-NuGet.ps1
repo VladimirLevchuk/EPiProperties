@@ -28,12 +28,13 @@ Write-Output "Defined variables:"
 foreach($name in $variables.keys)
 {
     $value = $variables[$name]
-    Write-Output "$name=$value"
+	$printedValue = ($name.Contains("Secure") || $name.ToLower.Contains("password")) ? "*************" : $value
+    Write-Output "$name=$printedValue"
 }
 
 $nuget = "$srcFolder\.nuget\NuGet.exe"
 $apikey = $variables["apikeySecure"]
-$path = "$tempFolder\*.nupkg"
+$path = "$tempFolder\EPiProperties\*.nupkg"
 $parameters = " Push ""$path"" -ApiKey $apikey"
 
 Write-Output "$nuget Push $path -ApiKey *************"
