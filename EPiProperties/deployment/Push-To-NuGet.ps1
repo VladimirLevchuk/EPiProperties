@@ -20,6 +20,8 @@ foreach($artifact in $artifacts.values)
     Write-Output "Url: $($artifact.url)"
 }
 
+Write-Output "EPiProperties\deployment"
+
 # script custom variables
 foreach($name in $variables.keys)
 {

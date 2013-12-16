@@ -11,6 +11,8 @@
     $projectBuildNumber
 )
 
+Write-Output ".\deployment"
+
 # list all artifacts
 foreach($artifact in $artifacts.values)
 {
