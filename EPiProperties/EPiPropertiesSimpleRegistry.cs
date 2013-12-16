@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using EPiProperties.Abstraction;
+using EPiProperties.Contracts;
 using EPiServer.ServiceLocation;
 
 namespace EPiProperties
@@ -15,10 +15,15 @@ namespace EPiProperties
         {
             _getters = getters.Where(x => Util.TypeExtensions.Is<IEPiPropertyGetter>(x));
         }
-        public IEnumerable<IEPiPropertyGetter> LookupGetters(PropertyInfo property)
+        public virtual IEnumerable<IEPiPropertyGetter> LookupGetters(PropertyInfo property)
         {
             var result = _getters.Select(x => (IEPiPropertyGetter) ServiceLocator.Current.GetService(x));
             return result;
+        }
+
+        public virtual bool IsEPiProperty(PropertyInfo property)
+        {
+            return LookupGetters(property).Any();
         }
     }
 }

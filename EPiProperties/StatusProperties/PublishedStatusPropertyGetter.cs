@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using EPiProperties.Abstraction;
+using EPiProperties.Contracts;
 using EPiProperties.StatusProperties.DataAnnotation;
 using EPiServer.Core;
 using EPiProperties.Util;

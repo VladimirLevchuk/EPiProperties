@@ -1,7 +1,6 @@
 ﻿using System.Linq;
-using System.Reflection;
 using Castle.DynamicProxy;
-using EPiProperties.Abstraction;
+using EPiProperties.Contracts;
 using EPiProperties.Util;
 using EPiServer.Core;
 
@@ -46,15 +45,6 @@ namespace EPiProperties
                     }
                 }
             }
-        }
-    }
-
-    public class PropertyInterceptionFilter
-    {
-        public virtual bool NeverIntercept(PropertyInfo property)
-        {
-            var result = property.DeclaringType.AssemblyQualifiedName.ToLower().StartsWith("EPiServer".ToLower());
-            return result;
         }
     }
 }

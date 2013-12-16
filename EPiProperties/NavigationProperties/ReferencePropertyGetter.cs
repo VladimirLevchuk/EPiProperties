@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using EPiProperties.Abstraction;
+using EPiProperties.Contracts;
 using EPiProperties.NavigationProperties.DataAnnotation;
 using EPiProperties.Util;
 using EPiServer;
@@ -88,7 +88,7 @@ namespace EPiProperties.NavigationProperties
             }
             else
             {
-                errorMessageFormat = LocalizationService.GetString("EPiProperties/PropertyRequiredFormat", "Required property '{0}' is not set on the page #{1} of type '{2}'. ");
+                errorMessageFormat = LocalizationService.GetString("EPiProperties/PropertyRequiredFormat", "Required property '{0}' is not properly set on the page #{1} of type '{2}'. ");
             }
 
             var content = contentData as IContent;

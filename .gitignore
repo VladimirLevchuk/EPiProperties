@@ -6,3 +6,7 @@ packages/
 *.user
 EPiProperties*.nupkg
 *.suo
+SampleSite75/bin/
+SampleSite75/App_Data/*.log
+*.vsp
+*.psess

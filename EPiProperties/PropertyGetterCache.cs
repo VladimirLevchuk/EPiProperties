@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Caching;
-using EPiProperties.Abstraction;
+using EPiProperties.Contracts;
 
 namespace EPiProperties
 {
@@ -30,6 +30,13 @@ namespace EPiProperties
             }
 
             return result;
+        }
+
+        public virtual bool Contains(PropertyInfo property)
+        {
+            var key = GetKey(property);
+            var value = _cache.Get(key) as IEnumerable<IEPiPropertyGetter>;
+            return value != null /*&& value.Any()*/;
         }
     }
 }

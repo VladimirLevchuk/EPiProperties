@@ -1,0 +1,62 @@
+﻿@using EPiServer.Core
+@model SampleSite.ContentModels.Pages.FrontPage
+
+@{
+    ViewBag.Title = Model.PageName;
+    ViewBag.PageName = Model.PageName;
+}
+
+<header>
+    <ul>
+        @if (Model.SearchPage != null)
+        {
+            <li>
+                <a href="@Model.SearchPage.FriendlyUrl"> Search </a>  
+            </li>
+        }
+        
+        @if (Model.MainList != null)
+        {
+            <li>
+                <a href="@Model.MainList.FriendlyUrl"> Main List</a>
+            </li>
+        }
+    </ul>
+</header>
+
+<nav>
+    <ul>
+        @foreach (var page in Model.Children.Where(x => x.IsAvailableInMenu && x.IsAvailableForCurrentUser))
+        {
+            <li>
+                <a href="@page.FriendlyUrl"> @page.Name </a>
+            </li>
+        }
+    </ul>
+</nav>
+
+@Html.PropertyFor(x => x.FrontCarousel)
+
+<hr />
+<nav>
+    <h2> Lite descendents </h2>
+    <ul>
+        @foreach (var pageLink in Model.Descendents)
+        {
+            <li>
+                @Html.PageLink(new PageReference(pageLink.ID))
+            </li>
+        }
+    </ul>
+</nav>
+<hr />
+    <h2> Descendent pages </h2>
+    <ul>
+        @foreach (var page in Model.DescendentPages)
+        {
+            <li>
+                @Html.PageLink(page)
+            </li>
+        }
+    </ul>
+<hr />
