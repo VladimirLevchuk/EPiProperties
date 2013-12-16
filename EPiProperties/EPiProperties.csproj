@@ -219,6 +219,16 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>pushd "$(ProjectDir)"
+
+$(SolutionDir).nuget\NuGet.exe Pack -Prop Configuration=Release 
+
+$(SolutionDir).nuget\NuGet.exe Pack -Symbols -Prop Configuration=Release
+
+popd
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
