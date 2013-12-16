@@ -1,8 +1,8 @@
 ﻿using EPiProperties.Util;
 using EPiServer.Core;
 using NUnit.Framework;
-using SampleSite.Models.Pages;
 using FluentAssertions;
+using SampleSite.Models.Pages;
 
 namespace EPiProperties.Tests.Util
 {

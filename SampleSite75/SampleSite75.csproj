@@ -209,21 +209,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Blocks\CarouselContent.cs" />
-    <Compile Include="Models\Pages\ArticlePage.cs" />
-    <Compile Include="Models\Pages\Base\ContentPageBase.cs" />
-    <Compile Include="Models\Pages\Base\PageBase.cs" />
-    <Compile Include="Models\Pages\FolderPage.cs" />
-    <Compile Include="Models\Pages\FrontPage.cs" />
-    <Compile Include="Models\Pages\ListPage.cs" />
-    <Compile Include="Models\Pages\SearchPage.cs" />
-    <Compile Include="Models\Pages\SectionPage.cs" />
-    <Compile Include="Models\Pages\Test\LoadTestPage.cs" />
-    <Compile Include="Models\Pages\Test\PageWithoutEPiProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Properties\" />
     <Folder Include="Static\" />
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +244,10 @@
     <ProjectReference Include="..\EPiProperties\EPiProperties.csproj">
       <Project>{f88d9064-f0aa-4d52-8322-8e2c39aac33d}</Project>
       <Name>EPiProperties</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SampleSite.ContentModels\SampleSite.ContentModels.csproj">
+      <Project>{0dd98642-ff1c-4ac2-88d2-4252e57ae5af}</Project>
+      <Name>SampleSite.ContentModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ProjectExtensions>
