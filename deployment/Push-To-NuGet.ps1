@@ -11,6 +11,8 @@
     $projectBuildNumber
 )
 
+Write-Output "Starting deployment: $projectName $projectVersion"
+
 # list all artifacts
 foreach($artifact in $artifacts.values)
 {
@@ -20,9 +22,41 @@ foreach($artifact in $artifacts.values)
     Write-Output "Url: $($artifact.url)"
 }
 
+Write-Output "Defined variables:"
+
+$securedValue = "*************"
 # script custom variables
 foreach($name in $variables.keys)
 {
     $value = $variables[$name]
-    Write-Output "$name=$value"
+	$isSecured = $name.Contains("Secure") -or $name.ToLower().Contains("password")
+	if ($isSecured) {
+		$printedValue = $securedValue 
+	} else {
+		$printedValue = $value
+	}
+	
+    Write-Output "$name=$printedValue"
 }
+
+$nuget = "$srcFolder\.nuget\NuGet.exe"
+$apikey = $variables["apikeySecure"]
+$nugetPackagesMask = "$tempFolder\EPiProperties\*.nupkg"
+$packageFilename = $nugetPackagesMask
+$allPackages = Get-ChildItem $nugetPackagesMask
+
+foreach ($packageItem in $allPackages) 
+{
+	$packageFilename = $packageItem.ToString()
+	if (-not $packageFilename.Contains("symbols"))
+	{
+		$path = $packageFilename
+		break
+	}
+}
+
+$parameters = " Push ""$path"" -ApiKey $apikey"
+
+Write-Output "$nuget Push $path -ApiKey $securedValue"
+
+Invoke-Expression "$nuget $parameters"
