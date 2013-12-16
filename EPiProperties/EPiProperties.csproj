@@ -192,7 +192,7 @@
     <Compile Include="StatusProperties\PublishedStatusPropertyGetter.cs" />
     <Compile Include="StatusProperties\Services\CmsPageService.cs" />
     <Compile Include="StatusProperties\Services\ICmsPageService.cs" />
-    <Compile Include="Infrastructure\ContentDataInterceptorHandlerExtender.cs" />
+    <Compile Include="Infrastructure\EPiPropertiesContentDataInterceptorHandler.cs" />
     <Compile Include="Contracts\ContentDataInterceptorHook.cs" />
     <Compile Include="Util\InvocationExtensions.cs" />
     <Compile Include="NavigationProperties\AncestorsPropertyGetter.cs" />
@@ -224,7 +224,11 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
     <PostBuildEvent>"$(SolutionDir).nuget\NuGet.exe" Pack "$(SolutionDir)EPiProperties\EPiProperties.csproj" -Symbols -Prop Configuration=Release;OutDir="$(OutDir.Trim('\\'))\\" -BasePath "$(OutDir)" -Verbosity detailed
+
 </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>del "*.nupkg"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

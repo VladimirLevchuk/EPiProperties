@@ -1,7 +1,7 @@
 ﻿using EPiServer.Core;
 using EPiServer.DataAnnotations;
 
-namespace SampleSite.Models.Pages.Test
+namespace SampleSite.ContentModels.Pages.Test
 {
     [ContentType(GUID = "{838F72EC-C2EE-464A-9F89-C511BFD6D270}")]
     public class LoadTestPage : PageData

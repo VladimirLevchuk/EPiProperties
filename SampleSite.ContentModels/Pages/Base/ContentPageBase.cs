@@ -1,6 +1,6 @@
 ﻿using EPiServer.Core;
 
-namespace SampleSite.Models.Pages.Base
+namespace SampleSite.ContentModels.Pages.Base
 {
     public class ContentPageBase : PageBase
     {

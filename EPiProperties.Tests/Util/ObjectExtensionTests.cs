@@ -2,7 +2,7 @@
 using EPiServer.Core;
 using NUnit.Framework;
 using FluentAssertions;
-using SampleSite.Models.Pages;
+using SampleSite.ContentModels.Pages;
 
 namespace EPiProperties.Tests.Util
 {

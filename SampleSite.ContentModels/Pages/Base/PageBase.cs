@@ -1,14 +1,11 @@
 ﻿using System.Collections.Generic;
-using Castle.Core;
-using EPiProperties;
 using EPiProperties.NavigationProperties.DataAnnotation;
 using EPiProperties.OtherProperties.DataAnnotation;
 using EPiProperties.StatusProperties.DataAnnotation;
 using EPiProperties.StatusProperties.Predicates;
 using EPiServer.Core;
-using EPiServer.DataAnnotations;
 
-namespace SampleSite.Models.Pages.Base
+namespace SampleSite.ContentModels.Pages.Base
 {
     // [Interceptor(typeof(EPiPropertiesInterceptor))]
     public class PageBase : PageData

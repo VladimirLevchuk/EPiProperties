@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using EPiServer.Web.Mvc;
 using SampleSite.Business.LoadTesting;
-using SampleSite.Models.Pages.Test;
+using SampleSite.ContentModels.Pages.Test;
 
 namespace SampleSite.Controllers
 {

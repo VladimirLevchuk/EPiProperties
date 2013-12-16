@@ -1,19 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-using Castle.Core;
-using Castle.DynamicProxy;
-using Castle.MicroKernel.ModelBuilder.Descriptors;
-using EPiProperties;
+﻿using System.ComponentModel.DataAnnotations;
 using EPiProperties.NavigationProperties.DataAnnotation;
 using EPiServer.Core;
 using EPiServer.DataAnnotations;
-using SampleSite.Models.Blocks;
+using SampleSite.ContentModels.Blocks;
+using SampleSite.ContentModels.Pages.Base;
 
-namespace SampleSite.Models.Pages
+namespace SampleSite.ContentModels.Pages
 {
     [ContentType(GUID = "{63302A4D-7577-4258-A519-38567F1EE3E0}")]
-    public class FrontPage : Base.PageBase
+    public class FrontPage : PageBase
     {
         public virtual PageReference SearchPageLink { get; set; }
 

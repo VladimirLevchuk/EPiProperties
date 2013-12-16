@@ -1,9 +1,9 @@
 ﻿using EPiProperties.NavigationProperties.DataAnnotation;
 using EPiServer.Core;
 using EPiServer.DataAnnotations;
-using SampleSite.Models.Pages.Base;
+using SampleSite.ContentModels.Pages.Base;
 
-namespace SampleSite.Models.Blocks
+namespace SampleSite.ContentModels.Blocks
 {
     [ContentType(DisplayName = "CarouselContent", GUID = "63bf5dbc-5acc-4f36-b648-d735f5e5a6c5")]
     public class CarouselContent : BlockData

@@ -29,7 +29,7 @@ namespace EPiProperties.Initialization
                 x.For<EPiPropertiesInterceptor>().Use<EPiPropertiesInterceptor>();
 
                 // ContentDataInterceptorHandler to be overriden to allow customize interception logic and configure windsor container
-                x.For<ContentDataInterceptorHandler>().Use<ContentDataInterceptorHandlerExtender>().Ctor<Action<IWindsorContainer>>().Is(ConfigureWindsor);
+                x.For<ContentDataInterceptorHandler>().Use<EPiPropertiesContentDataInterceptorHandler>().Ctor<Action<IWindsorContainer>>().Is(ConfigureWindsor);
 
                 // ContentScannerExtension filters out EPiProperties from content type syncronization mechanism
                 x.For<ContentScannerExtension>().Use<EPiPropertiesCustomContentScannerExtension>();

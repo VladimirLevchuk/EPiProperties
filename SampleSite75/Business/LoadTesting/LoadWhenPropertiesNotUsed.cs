@@ -1,6 +1,6 @@
 ﻿using EPiServer;
 using EPiServer.Core;
-using SampleSite.Models.Pages;
+using SampleSite.ContentModels.Pages;
 
 namespace SampleSite.Business.LoadTesting
 {

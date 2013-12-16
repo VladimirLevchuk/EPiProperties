@@ -12,9 +12,9 @@ using EPiServer.ServiceLocation;
 
 namespace EPiProperties.Infrastructure
 {
-    public class ContentDataInterceptorHandlerExtender : ContentDataInterceptorHandler
+    public class EPiPropertiesContentDataInterceptorHandler : ContentDataInterceptorHandler
     {
-        protected ContentProxyInterceptorSelector InterceptorSelector { get; set; }
+        protected ContentProxyInterceptorSelector ContentProxyInterceptorSelector { get; set; }
         private MethodInfo _methodIsInterceptableType;
         protected virtual object SyncRoot
         {
@@ -22,12 +22,12 @@ namespace EPiProperties.Infrastructure
             private set;
         }
 
-        public ContentDataInterceptorHandlerExtender(ConstructorParameterResolver constructorResolver, 
-            ContentProxyInterceptorSelector interceptorSelector,
+        public EPiPropertiesContentDataInterceptorHandler(ConstructorParameterResolver constructorResolver, 
+            ContentProxyInterceptorSelector contentProxyInterceptorSelector,
             Action<IWindsorContainer> containerConfigurator)
             : base(constructorResolver)
         {
-            InterceptorSelector = interceptorSelector;
+            ContentProxyInterceptorSelector = contentProxyInterceptorSelector;
             Validator.ThrowIfNull("containerConfigurator", containerConfigurator);
 
             var fieldContainer = typeof(ContentDataInterceptorHandler).GetField("_container", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -79,7 +79,7 @@ namespace EPiProperties.Infrastructure
                                 .Interceptors(
                                     InterceptorReference.ForKey(interceptorReferenceKey),
                                     InterceptorReference.ForType<EPiPropertiesInterceptor>())
-                                .SelectedWith(InterceptorSelector)
+                                .SelectedWith(ContentProxyInterceptorSelector)
                                 .Anywhere
                                 .Proxy.Hook(ServiceLocator.Current.GetInstance<ContentDataInterceptorHook>()
                                 ) /* !!! */                            

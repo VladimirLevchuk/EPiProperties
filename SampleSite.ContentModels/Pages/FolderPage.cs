@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using EPiProperties.NavigationProperties.DataAnnotation;
 using EPiServer.DataAnnotations;
-using SampleSite.Models.Pages.Base;
+using SampleSite.ContentModels.Pages.Base;
 
-namespace SampleSite.Models.Pages
+namespace SampleSite.ContentModels.Pages
 {
     [ContentType(GUID = "{440D331D-E6AD-4BFD-93BF-7D0F12DA1DEB}")]
     public class FolderPage : PageBase
