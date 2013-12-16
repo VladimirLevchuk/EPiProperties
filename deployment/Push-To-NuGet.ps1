@@ -31,10 +31,11 @@ foreach($name in $variables.keys)
     Write-Output "$name=$value"
 }
 
-$nuget = "$srcFolder\\.nuget\\NuGet.exe"
+$nuget = "$srcFolder\.nuget\NuGet.exe"
 $apikey = $variables["apikeySecure"]
-$path = "$tempFolder\\*.nupkg"
+$path = "$tempFolder\*.nupkg"
 $parameters = " Push ""$path"" -ApiKey $apikey"
 
 Write-Output "$nuget Push $path -ApiKey *************"
 
+Invoke-Expression "$nuget $parameters"
