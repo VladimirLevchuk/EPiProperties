@@ -19,6 +19,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleSite.ContentModels", "SampleSite.ContentModels\SampleSite.ContentModels.csproj", "{0DD98642-FF1C-4AC2-88D2-4252E57AE5AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{20EF30E5-80F2-4BEF-802C-C55CEEF99DC7}"
+	ProjectSection(SolutionItems) = preProject
+		EPiProperties\Push-To-NuGet.ps1 = EPiProperties\Push-To-NuGet.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
