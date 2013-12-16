@@ -24,11 +24,18 @@ foreach($artifact in $artifacts.values)
 
 Write-Output "Defined variables:"
 
+$securedValue = "*************"
 # script custom variables
 foreach($name in $variables.keys)
 {
     $value = $variables[$name]
-	$printedValue = ($name.Contains("Secure") || $name.ToLower.Contains("password")) ? "*************" : $value
+	$isSecured = $name.Contains("Secure") -or $name.ToLower().Contains("password")
+	if ($isSecured) {
+		$printedValue = $securedValue 
+	} else {
+		$printedValue = $value
+	}
+	
     Write-Output "$name=$printedValue"
 }
 
@@ -37,6 +44,6 @@ $apikey = $variables["apikeySecure"]
 $path = "$tempFolder\EPiProperties\*.nupkg"
 $parameters = " Push ""$path"" -ApiKey $apikey"
 
-Write-Output "$nuget Push $path -ApiKey *************"
+Write-Output "$nuget Push $path -ApiKey $securedValue"
 
 Invoke-Expression "$nuget $parameters"
